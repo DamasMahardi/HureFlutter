@@ -1,0 +1,28 @@
+import 'business_items.dart';
+
+class BusinessList {
+  int totalCount;
+  List<BusinessItems> items;
+
+  BusinessList({this.totalCount, this.items});
+
+  factory BusinessList.fromJson(Map<String, dynamic> json) {
+    return BusinessList(
+      totalCount: json['totalCount'],
+      items: json['items'] != null
+          ? json['items']
+              .map<BusinessItems>((v) => new BusinessItems.fromJson(v))
+              .toList()
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['totalCount'] = this.totalCount;
+    if (this.items != null) {
+      data['items'] = this.items.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
